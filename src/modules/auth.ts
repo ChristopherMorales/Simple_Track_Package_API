@@ -26,7 +26,12 @@ export const protect = (req, res, next) => {
       return;
     }
   
-    const [, token] = bearer.split(" ");
+    let [bearerVal, token] = bearer.split(" ");
+
+    if (!token && bearerVal !== "") {
+      token = bearerVal
+    }
+
     if (!token) {
       res.status(401);
       res.send("Not authorized");

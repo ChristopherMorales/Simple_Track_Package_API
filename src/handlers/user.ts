@@ -5,15 +5,23 @@ export const createNewUser = async (req, res, next) => {
   try {
     const hash = await hashPassword(req.body.password);
 
-    const user = await prisma.user.create({
-      data: {
-        username: req.body.username.toLowerCase(),
-        password: hash,
-      },
-    });
+    try {
+      const user = await prisma.user.create({
+        data: {
+          username: req.body.username.toLowerCase(),
+          password: hash,
+        },
+      });
 
-    const token = createJWT(user);
-    res.json({ token });
+      const token = createJWT(user);
+      res.json({ token });
+
+    } catch (error) {
+      console.log(error)
+      error.type='input'
+      next(error)
+    }
+
   } catch (error) {
     error.type = 'input'
     next(error.message)
@@ -23,7 +31,7 @@ export const createNewUser = async (req, res, next) => {
 export const signin = async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({
-      where: { username: req.body.username.toLowerCase() },
+      where: { username: req.body.username.toString().toLowerCase() },
     });
   
     if (!user) {

@@ -90,7 +90,8 @@ export const updateOrder = async (req, res, next) => {
         }
       },
       data: {
-        status: req.body.status
+        equipment: req.body.equipment,
+        brand: req.body.brand
       }
     })
 
