@@ -2,8 +2,7 @@ import express from 'express'
 import router from './router'
 import swaggerUi from 'swagger-ui-express'
 const swaggerFile = require('./swagger_output.json')
-
-import { protect } from './modules/auth'
+const cors = require('cors');
 
 import rateLimit from 'express-rate-limit'
 import slowDown from "express-slow-down";
@@ -20,6 +19,8 @@ const speedLimiter = slowDown({
 });
 
 const app = express();
+
+app.use(cors());
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 app.set('trust proxy', 1);
@@ -28,8 +29,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static("static"))
 
 app.use("/api", speedLimiter, limiter, router, () => {
-   /* #swagger.tags = ['Order'] 
-    */
+    /* #swagger.tags = ['Order'] 
+     */
 });
 
 app.use((err, req, res, next) => {
