@@ -20,7 +20,14 @@ const speedLimiter = slowDown({
 
 const app = express();
 
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile, {
+    swaggerOptions: {
+        requestInterceptor: function(request){
+            request.headers.Origin = `*`;
+            return request;
+        },
+    }
+}))
 
 app.set('trust proxy', 1);
 app.use(express.json())
