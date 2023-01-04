@@ -20,7 +20,7 @@ const doc = {
       },
     security: [{ bearerAuth: []},
     ],
-    host: `api-design-tracker.onrender.com:${process.env.PORT}`
+    host: `api-design-tracker.onrender.com`
 }
 
 const outputFile = './swagger_output.json'
