@@ -20,18 +20,10 @@ const speedLimiter = slowDown({
 
 const app = express();
 
-app.use(function(req, res, next) {
-    // res.header("Access-Control-Allow-Origin", "*");
-    const allowedOrigins = ['http://localhost:3003', 'http://api-design-tracker.onrender.com', 'https://api-design-tracker.onrender.com'];
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-         res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-credentials", true);
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
-    next();
-  });
+app.use(cors({
+    origin: ['https://api-track-package.onrender.com/doc/', 'http://api-track-package.onrender.com/', 'https://api-track-package.onrender.com/'],
+    credentials: true,
+}))
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 app.set('trust proxy', 1);
