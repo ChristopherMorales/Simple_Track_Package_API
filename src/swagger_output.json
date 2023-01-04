@@ -1,0 +1,210 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Package Tracker API Design ",
+    "description": "This is an API that follows great practices such a Authorization, Rate limitting and Rate slowdown. You can create an order with your username and search the availables order, however, you can't see other users orders."
+  },
+  "host": "api-design-tracker.onrender.com:10000",
+  "basePath": "/api/",
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "scheme": "bearer",
+      "in": "header",
+      "bearerFormat": "JWT"
+    }
+  },
+  "paths": {
+    "/order": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "This endpoint is for retrieving all orders of a specific user from the server.",
+        "parameters": [],
+        "responses": {},
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "description": "This endpoint is for creating random orders from the user.",
+        "parameters": [],
+        "responses": {},
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/order/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "This endpoint is for getting a specific order from the user.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the order",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {},
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "description": "This endpoint is for editing brand and equipment orders from the user.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the order",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "brand",
+            "in": "body",
+            "description": "Brand of the item",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "brand": {
+                  "type": "string",
+                  "example": "Amazon"
+                },
+                "equipment": {
+                  "type": "string",
+                  "example": "Echo dot"
+                }
+              },
+              "required": [
+                "brand",
+                "equipment"
+              ]
+            }
+          }
+        ],
+        "responses": {},
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Order"
+        ],
+        "description": "This endpoint is for deleting specific order from the user.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the order",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {},
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Credentials",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": ""
+                },
+                "password": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "username",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Credentials",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": ""
+                },
+                "password": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "username",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}
