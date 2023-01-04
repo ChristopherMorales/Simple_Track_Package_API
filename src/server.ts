@@ -20,10 +20,6 @@ const speedLimiter = slowDown({
 
 const app = express();
 
-app.use(cors({
-    origin: ['https://api-track-package.onrender.com/doc/', 'http://api-track-package.onrender.com/', 'https://api-track-package.onrender.com/'],
-    credentials: true,
-}))
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 app.set('trust proxy', 1);
@@ -31,7 +27,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static("static"))
 
-app.use("/api", speedLimiter, limiter, router, () => {
+app.use("/api", speedLimiter, limiter, router, (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
     /* #swagger.tags = ['Order'] 
      */
 });
