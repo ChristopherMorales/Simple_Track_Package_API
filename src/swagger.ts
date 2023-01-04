@@ -7,7 +7,7 @@ const doc = {
     info: {
         version: '1.0.0',      // by default: '1.0.0'
         title: 'Package Tracker API Design ',        // by default: 'REST API'
-        description: 'This is an API that follows great practices such a Authorization, Rate limitting and Rate slowdown. You can create an order with your username and search the availables order, however, you can\'t see other users orders.',
+        description: 'NOTE: For some reason, the Swagger UI is causing some CORS errors when sending the request through the UI. However, you can see the endpoints and test them with Postman or any other API platform. This is an API that follows good practices such a Authorization, Rate limitting and Rate slowdown. You can create an order with your username and search the availables order, however, you can\'t see other users orders.',
       },
     securityDefinitions: {
         bearerAuth: {
