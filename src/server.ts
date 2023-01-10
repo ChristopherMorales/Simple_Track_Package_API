@@ -21,7 +21,11 @@ const speedLimiter = slowDown({
 const app = express();
 
 
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile), (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+})
 
 app.set('trust proxy', 1);
 app.use(express.json())
@@ -30,9 +34,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static("static"))
 
 app.use("/api", speedLimiter, limiter, router, (req, res, next) => {
-    /* #swagger.tags = ['Order'] 
-     */
-    next()
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 
 app.use((err, req, res, next) => {
