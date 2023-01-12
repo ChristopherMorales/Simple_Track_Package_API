@@ -1,21 +1,21 @@
-import { Router } from "express";
+import { Router } from 'express'
 import { createOrder, deleteOrder, getOneOrder, updateOrder, getOrders } from './handlers/order'
-import { createNewUser, signin } from "./handlers/user";
-import { protect } from "./modules/auth";
+import { createNewUser, signin } from './handlers/user'
+import { protect } from './modules/auth'
 
-const router = Router();
+const router = Router()
 
-router.get("/order", protect, getOrders, () => {
+router.get('/order', protect, getOrders, () => {
   /*
     #swagger.auto = false
     #swagger.tags = ['Order']
     #swagger.description = 'This endpoint is for retrieving all orders of a specific user from the server.'
     #swagger.security = [ { "bearerAuth": [] } ]
   */
-});
+})
 
-router.get("/order/:id", protect, getOneOrder, () => {
-  /* 
+router.get('/order/:id', protect, getOneOrder, () => {
+  /*
     #swagger.auto = false
     #swagger.tags = ['Order']
     #swagger.description = 'This endpoint is for getting a specific order from the user.'
@@ -27,22 +27,22 @@ router.get("/order/:id", protect, getOneOrder, () => {
     }
     #swagger.security = [ { "bearerAuth": [] } ]
   */
-});
+})
 
-router.post("/order", protect, createOrder, () => {
+router.post('/order', protect, createOrder, () => {
   /*
     #swagger.auto = false
     #swagger.description = 'This endpoint is for creating random orders from the user.'
-    #swagger.tags = ['Order'] 
+    #swagger.tags = ['Order']
     #swagger.security = [ { "bearerAuth": [] } ]
   */
-});
+})
 
-router.put("/order/:id", protect, updateOrder, () => {
-  /* 
+router.put('/order/:id', protect, updateOrder, () => {
+  /*
     #swagger.auto = false
     #swagger.description = 'This endpoint is for editing brand and equipment orders from the user.'
-    #swagger.tags = ['Order'] 
+    #swagger.tags = ['Order']
     #swagger.parameters['id'] = {
       in: 'path',
       description: 'Id of the order',
@@ -60,9 +60,9 @@ router.put("/order/:id", protect, updateOrder, () => {
     #swagger.security = [ { "bearerAuth": [] } ]
   */
 
-});
+})
 
-router.delete("/order/:id", protect, deleteOrder, () => {
+router.delete('/order/:id', protect, deleteOrder, () => {
   /*
     #swagger.auto = false
     #swagger.tags = ['Order']
@@ -75,13 +75,13 @@ router.delete("/order/:id", protect, deleteOrder, () => {
     }
     #swagger.security = [ { "bearerAuth": [] } ]
   */
-});
+})
 
-router.post("/signup", createNewUser, () => {
- 
+router.post('/signup', createNewUser, () => {
+
   /*
    #swagger.auto = false
-   #swagger.tags = ['User'] 
+   #swagger.tags = ['User']
    #swagger.parameters['body'] = {
        in: 'body',
        description: 'Credentials',
@@ -91,11 +91,11 @@ router.post("/signup", createNewUser, () => {
                }
      }
   */
-});
-router.post("/login", signin, () => {
+})
+router.post('/login', signin, () => {
   /*
    #swagger.auto = false
-   #swagger.tags = ['User'] 
+   #swagger.tags = ['User']
    #swagger.parameters['body'] = {
       in: 'body',
       description: 'Credentials',
@@ -105,6 +105,6 @@ router.post("/login", signin, () => {
               }
     }
   */
-});
+})
 
-export default router;
+export default router

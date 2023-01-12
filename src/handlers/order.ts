@@ -1,5 +1,6 @@
-import prisma from "../db"
-import axios from 'axios';
+/* eslint-disable camelcase */
+import prisma from '../db'
+import axios from 'axios'
 
 // Get all
 export const getOrders = async (req, res, next) => {
@@ -40,15 +41,14 @@ export const getOneOrder = async (req, res, next) => {
 
 // Create one
 export const createOrder = async (req, res, next) => {
-
-  let response;
-  let fetchUser;
+  let response
+  let fetchUser
 
   try {
-    response = await axios.get('https://random-data-api.com/api/v2/appliances?size=1');
-    fetchUser = await axios.get('https://random-data-api.com/api/v2/users?size=1');
+    response = await axios.get('https://random-data-api.com/api/v2/appliances?size=1')
+    fetchUser = await axios.get('https://random-data-api.com/api/v2/users?size=1')
   } catch (error) {
-    console.log(error);
+    console.log(error)
     next(error)
   }
 
@@ -56,28 +56,25 @@ export const createOrder = async (req, res, next) => {
     return res.status(500).send({ message: 'User or order not found' })
   }
 
-  const { first_name, last_name, address } = fetchUser.data;
-  const { brand, equipment } = response.data;
+  const { first_name, last_name, address } = fetchUser.data
+  const { brand, equipment } = response.data
 
   try {
     const order = await prisma.order.create({
       data: {
-        brand: brand,
-        equipment: equipment,
+        brand,
+        equipment,
         address: `${first_name} ${last_name} ${address.street_address} ${address.street_address} ${address.city} ${address.state} ${address.country}`,
         belongsToId: req.user.id
       }
     })
 
     res.json({ data: order })
-
   } catch (error) {
     console.log(error)
     next(error)
   }
-
 }
-
 
 // Update one
 export const updateOrder = async (req, res, next) => {

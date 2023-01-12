@@ -1,3 +1,3 @@
 export default {
-    port: process.env.PROD_PORT
+  port: process.env.PROD_PORT
 }
